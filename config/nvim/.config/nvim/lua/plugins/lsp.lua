@@ -1,94 +1,56 @@
 -- LSP config
-local lspconfig = require("lspconfig")
 
--- Add additional capabilities from blink
+-- Get LSP capabilities
+-- Get additional capabilities from blink
 local capabilities = require("blink.cmp").get_lsp_capabilities()
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
 
+-- Define keymaps to be set when LSP attaches to a buffer
 local set_lsp_keymap = function()
   -- Add keymap when attach with pyright (only inside the current buffer)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = 0 })
 end
 
-lspconfig.lua_ls.setup({
+-- Setup lspconfig
+vim.lsp.config("*", {
   capabilities = capabilities,
+  on_attach = set_lsp_keymap,
+})
+
+-- Lua LSP server setup
+vim.lsp.config.lua_ls = {
   settings = {
     Lua = {
       telemetry = { enable = false },
       workspace = { checkThirdParty = false },
     },
   }
-})
-
-lspconfig.pyright.setup {
-  on_attach = set_lsp_keymap,
-  capabilities = capabilities,
 }
+vim.lsp.enable("lua_ls")
 
-lspconfig.clangd.setup {
-  on_attach = function(client, bufnr)
-    client.resolved_capabilities.document_formatting = false
-    on_attach(client, bufnr)
-  end,
+-- Python LSP server setup
+vim.lsp.enable("pyright")
+
+-- C/C++ LSP server setup
+vim.lsp.enable("clangd")
+vim.lsp.config.clangd = {
   cmd = {
     "clangd",
     "--clang-tidy",                -- enable clang-tidy diagnostics
     "--background-index",          -- index project code in the background and persist index on disk
     "--completion-style=detailed", -- granularity of code completion suggestions: bundled, detailed
   },
-  capabilities = capabilities,
 }
 
-lspconfig.tsserver.setup {
-  on_attach = set_lsp_keymap,
-  capabilities = capabilities,
-}
-
-lspconfig.ocamllsp.setup {
-  on_attach = set_lsp_keymap,
-  capabilities = capabilities,
-}
-
-lspconfig.cssls.setup {
-  on_attach = set_lsp_keymap,
-  capabilities = capabilities,
-}
-
-lspconfig.emmet_language_server.setup {
-  on_attach = set_lsp_keymap,
-  capabilities = capabilities,
-}
-
-lspconfig.jsonls.setup {
-  on_attach = set_lsp_keymap,
-  capabilities = capabilities,
-}
-
-lspconfig.terraformls.setup {
-  on_attach = set_lsp_keymap,
-  capabilities = capabilities,
-}
-
-lspconfig.rust_analyzer.setup {
-  on_attach = set_lsp_keymap,
-  capabilities = capabilities,
-}
-
-lspconfig.angularls.setup {
-  on_attach = set_lsp_keymap,
-  capabilities = capabilities,
-}
-
-lspconfig.svelte.setup {
-  on_attach = set_lsp_keymap,
-  capabilities = capabilities,
-}
-
-lspconfig.gopls.setup {
-  on_attach = set_lsp_keymap,
-  capabilities = capabilities,
-}
-
-lspconfig.helm_ls.setup {
-  on_attach = set_lsp_keymap,
-  capabilities = capabilities,
-}
+-- Others
+vim.lsp.enable("ts_ls")
+vim.lsp.enable("ocamllsp")
+vim.lsp.enable("cssls")
+vim.lsp.enable("emmet_language_server")
+vim.lsp.enable("jsonls")
+vim.lsp.enable("terraformls")
+vim.lsp.enable("rust_analyzer")
+vim.lsp.enable("angularls")
+vim.lsp.enable("svelte")
+vim.lsp.enable("gopls")
+vim.lsp.enable("helm_ls")
