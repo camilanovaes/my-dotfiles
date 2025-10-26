@@ -1,9 +1,9 @@
 -- LSP config
 
 -- Get LSP capabilities
+local capabilities = vim.lsp.protocol.make_client_capabilities()
 -- Get additional capabilities from blink
-local capabilities = require("blink.cmp").get_lsp_capabilities()
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 -- Define keymaps to be set when LSP attaches to a buffer
 local set_lsp_keymap = function()
@@ -21,8 +21,14 @@ vim.lsp.config("*", {
 vim.lsp.config.lua_ls = {
   settings = {
     Lua = {
+      diagnostics = {
+        globals = { 'vim' }
+      },
       telemetry = { enable = false },
-      workspace = { checkThirdParty = false },
+      workspace = {
+        checkThirdParty = false,
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
     },
   }
 }
