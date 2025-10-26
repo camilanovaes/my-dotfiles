@@ -45,12 +45,15 @@ remap('n', '<leader>gi', ':Git diff<CR>', opts)
 remap('n', '<leader>gw', ':Gwrite<CR>', opts)
 remap('n', '<leader>gl', ':Flog<CR>', opts)
 
--- telescope
+-- fzf
 remap('n', '<C-p>', require('fzf-lua').files, opts)
 remap('n', '<C-l>', require('fzf-lua').live_grep, opts)
 remap('n', '<C-t>', require('fzf-lua').tags, opts)
 remap('n', '<C-s>', require('fzf-lua').grep_cword, opts) -- need to install 'ripgrep'
 remap('n', '<leader><space>', require('fzf-lua').buffers, opts)
+
+-- snacks
+remap('n', '<leader>.', function() Snacks.scratch() end)
 
 -- diagnostics
 remap('n', '<leader>dd', vim.diagnostic.open_float, opts)
