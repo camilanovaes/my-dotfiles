@@ -49,6 +49,7 @@ require('lazy').setup({
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true, build = ":MasonUpdate" },
       'williamboman/mason-lspconfig.nvim',
+      'saghen/blink.cmp',
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -80,23 +81,20 @@ require('lazy').setup({
   },
   {
     -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      -- LSP completion capabilities
-      'hrsh7th/cmp-nvim-lsp',
-
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/nvim-cmp',
-
-      -- Snippets
-      {
-        'L3MON4D3/LuaSnip',
-        version = "v2.*",
-        build = "make install_jsregexp"
+    'saghen/blink.cmp',
+    dependencies = 'rafamadriz/friendly-snippets',
+    version = "*",
+    opts = {
+      keymap = {
+        preset = 'default',
+        ['<Enter>'] = { 'select_and_accept', 'fallback' }
       },
-      'saadparwaiz1/cmp_luasnip',
-      'rafamadriz/friendly-snippets'
-    },
+      appearance = {
+        use_nvim_cmp_as_default = true,
+        nerd_font_variant = 'mono'
+      },
+      signature = { enabled = true }
+    }
   },
   {
     -- Finder
@@ -106,7 +104,16 @@ require('lazy').setup({
       'nvim-lua/plenary.nvim',
       'nvim-lua/popup.nvim',
       'nvim-telescope/telescope-project.nvim',
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
     }
+  },
+  {
+    "ibhagwan/fzf-lua",
+    -- optional for icon support
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    -- or if using mini.icons/mini.nvim
+    -- dependencies = { "echasnovski/mini.icons" },
+    opts = {}
   },
 
   -- Visual

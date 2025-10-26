@@ -1,10 +1,8 @@
 -- LSP config
 local lspconfig = require("lspconfig")
 
--- TODO: Read about the adicional capabilities from cmp_nvim_lsp and how this
--- is used by broadcasting it to the servers above.
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+-- Add additional capabilities from blink
+local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 local set_lsp_keymap = function()
   -- Add keymap when attach with pyright (only inside the current buffer)
@@ -71,6 +69,26 @@ lspconfig.terraformls.setup {
 }
 
 lspconfig.rust_analyzer.setup {
+  on_attach = set_lsp_keymap,
+  capabilities = capabilities,
+}
+
+lspconfig.angularls.setup {
+  on_attach = set_lsp_keymap,
+  capabilities = capabilities,
+}
+
+lspconfig.svelte.setup {
+  on_attach = set_lsp_keymap,
+  capabilities = capabilities,
+}
+
+lspconfig.gopls.setup {
+  on_attach = set_lsp_keymap,
+  capabilities = capabilities,
+}
+
+lspconfig.helm_ls.setup {
   on_attach = set_lsp_keymap,
   capabilities = capabilities,
 }

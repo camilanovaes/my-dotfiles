@@ -46,7 +46,8 @@ remap('n', '<leader>gw', ':Gwrite<CR>', opts)
 remap('n', '<leader>gl', ':Flog<CR>', opts)
 
 -- telescope
-remap('n', '<C-p>', require('telescope.builtin').find_files, opts)
+remap('n', '<C-p>', require('fzf-lua').files, opts)
+remap('n', '<leader>go', require('telescope.builtin').git_files, opts)
 remap('n', '<C-t>', require('telescope.builtin').treesitter, opts)
 remap('n', '<C-s>', require('telescope.builtin').grep_string, opts) -- need to install 'ripgrep'
 remap('n', 'T', "<cmd>Telescope<cr>", opts)

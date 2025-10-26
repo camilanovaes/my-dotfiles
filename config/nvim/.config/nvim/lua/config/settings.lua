@@ -1,15 +1,15 @@
 -- General neovim configuration
 
 -- global options
-vim.o.mouse            = "a"  -- Enable mouse
+vim.o.mouse            = "a" -- Enable mouse
 vim.opt.inccommand     = "nosplit"
 vim.opt.background     = "dark"
-vim.opt.completeopt    = "menuone,noselect"  -- Improve completion
+vim.opt.completeopt    = "menuone,noselect" -- Improve completion
 vim.opt.swapfile       = true
 vim.opt.smartcase      = true
 vim.opt.laststatus     = 2
 vim.opt.incsearch      = true
-vim.opt.hlsearch       = false  -- Highlight on search
+vim.opt.hlsearch       = false -- Highlight on search
 vim.opt.ignorecase     = true
 vim.opt.errorbells     = false
 vim.opt.scrolloff      = 8
@@ -24,16 +24,16 @@ vim.opt.softtabstop    = 2
 vim.opt.shiftwidth     = 2
 vim.opt.expandtab      = true
 vim.opt.smartindent    = false
-vim.o.undofile         = true   -- Save undo history
+vim.o.undofile         = true -- Save undo history
 vim.o.updatetime       = 250
 vim.o.timeout          = true
 vim.o.timeoutlen       = 300
 
 -- window-local options
-vim.wo.number         = true  -- Make line numbers
-vim.opt.relativenumber = true  -- Use relative numbers
+vim.wo.number          = true -- Make line numbers
+vim.opt.relativenumber = true -- Use relative numbers
 vim.opt.cursorline     = true
-vim.opt.colorcolumn    = {"80", "120"}
+vim.opt.colorcolumn    = { "80", "120" }
 vim.opt.conceallevel   = 0
 
 -- buffer-local options
@@ -46,11 +46,11 @@ vim.opt.spell          = true
 
 -- Configure diagnostics messages
 vim.diagnostic.config({
-  virtual_text = true,
-  signs = true,
-  underline = true,
-  update_in_insert = true,
-  severity_sort = false,
+    virtual_text = true,
+    signs = true,
+    underline = true,
+    update_in_insert = true,
+    severity_sort = false,
 })
 
 -- Autocmds configuration:
