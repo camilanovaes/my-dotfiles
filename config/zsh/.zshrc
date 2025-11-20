@@ -1,6 +1,8 @@
 # ZSH CONFIG FILE
 # Author: Camila Novaes <novaes.csw@gmail.com>
 
+export DOTFILES=$HOME/dotfiles/
+
 # Path to oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -23,6 +25,7 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export VIRTUALENVWRAPPER_SCRIPT=$HOME/.local/bin/virtualenvwrapper.sh
 source $HOME/.local/bin/virtualenvwrapper_lazy.sh
 source $HOME/.cargo/env
+
 
 # go stuff
 export GOENV_ROOT=$HOME/.goenv
