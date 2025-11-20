@@ -27,6 +27,22 @@ require('lazy').setup({
       'kyazdani42/nvim-web-devicons',
     },
   },
+  {
+    "ibhagwan/fzf-lua",
+    -- optional for icon support
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    -- or if using mini.icons/mini.nvim
+    -- dependencies = { "echasnovski/mini.icons" },
+    opts = {}
+  },
+  {
+    -- Highlight, edit and navigate code
+    'nvim-treesitter/nvim-treesitter',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    },
+    build = ':TSUpdate',
+  },
 
   -- Git
   'tpope/vim-fugitive',
@@ -72,14 +88,6 @@ require('lazy').setup({
   'nvimtools/none-ls.nvim',
 
   {
-    -- Highlight, edit and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-    build = ':TSUpdate',
-  },
-  {
     -- Autocompletion
     'saghen/blink.cmp',
     dependencies = 'rafamadriz/friendly-snippets',
@@ -95,14 +103,6 @@ require('lazy').setup({
       },
       signature = { enabled = true }
     }
-  },
-  {
-    "ibhagwan/fzf-lua",
-    -- optional for icon support
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    -- or if using mini.icons/mini.nvim
-    -- dependencies = { "echasnovski/mini.icons" },
-    opts = {}
   },
 
   -- Visual
