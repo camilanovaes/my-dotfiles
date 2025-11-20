@@ -7,7 +7,9 @@ local remap = vim.keymap.set
 local opts  = { noremap = true, silent = true }
 
 -- source/edit init.lua
-remap('n', '<leader>ce', ':edit $MYVIMRC<cr>', opts)
+remap('n', '<leader>ce', function()
+  require('fzf-lua').files({ cwd = vim.fn.stdpath('config') })
+end, opts)
 remap('n', '<leader>cs', ':source $MYVIMRC<CR>', opts)
 
 -- make navigating around splits easier
@@ -57,8 +59,6 @@ remap('n', '<leader>.', function() Snacks.scratch() end)
 
 -- diagnostics
 remap('n', '<leader>dd', vim.diagnostic.open_float, opts)
-remap('n', '<leader>[d', vim.diagnostic.goto_next, opts)
-remap('n', '<leader>]d', vim.diagnostic.goto_prev, opts)
 remap('n', '<leader>q', vim.diagnostic.setloclist, opts)
 
 -- lsp
