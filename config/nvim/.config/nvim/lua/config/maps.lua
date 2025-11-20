@@ -47,15 +47,10 @@ remap('n', '<leader>gl', ':Flog<CR>', opts)
 
 -- telescope
 remap('n', '<C-p>', require('fzf-lua').files, opts)
-remap('n', '<leader>go', require('telescope.builtin').git_files, opts)
-remap('n', '<C-t>', require('telescope.builtin').treesitter, opts)
-remap('n', '<C-s>', require('telescope.builtin').grep_string, opts) -- need to install 'ripgrep'
-remap('n', 'T', "<cmd>Telescope<cr>", opts)
-remap('n', '<leader><space>', require('telescope.builtin').buffers, opts)
-remap('n', '<leader>lg', require('telescope.builtin').live_grep, opts)
-remap('n', '<leader>th', require('telescope.builtin').help_tags, opts)
-remap('n', '<leader>gc', require('telescope.builtin').git_commits, opts)
-remap('n', '<leader>tp', require('telescope').extensions.project.project, opts)
+remap('n', '<C-l>', require('fzf-lua').live_grep, opts)
+remap('n', '<C-t>', require('fzf-lua').tags, opts)
+remap('n', '<C-s>', require('fzf-lua').grep_cword, opts) -- need to install 'ripgrep'
+remap('n', '<leader><space>', require('fzf-lua').buffers, opts)
 
 -- diagnostics
 remap('n', '<leader>dd', vim.diagnostic.open_float, opts)

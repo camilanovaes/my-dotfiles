@@ -1,6 +1,5 @@
 require("plugins.lsp")
 require("plugins.lualine")
-require("plugins.telescope")
 require("plugins.treesitter")
 require("plugins.dap")
 require("plugins.autopairs")

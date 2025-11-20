@@ -97,17 +97,6 @@ require('lazy').setup({
     }
   },
   {
-    -- Finder
-    'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-lua/popup.nvim',
-      'nvim-telescope/telescope-project.nvim',
-      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
-    }
-  },
-  {
     "ibhagwan/fzf-lua",
     -- optional for icon support
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -141,7 +130,6 @@ require('lazy').setup({
       'rcarriga/nvim-dap-ui',
       'nvim-neotest/nvim-nio',
       'theHamsta/nvim-dap-virtual-text',
-      'nvim-telescope/telescope-dap.nvim',
     },
   },
   -- Copilot (testing)
@@ -159,17 +147,5 @@ require('lazy').setup({
       vim.g.slime_dont_ask_default = 2
       vim.g.slime_python_ipython = 1
     end
-  },
-
-  -- Remote development
-  {
-    "amitds1997/remote-nvim.nvim",
-    version = "*",                     -- Pin to GitHub releases
-    dependencies = {
-      "nvim-lua/plenary.nvim",         -- For standard functions
-      "MunifTanjim/nui.nvim",          -- To build the plugin UI
-      "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
-    },
-    config = true,
   },
 }, {})
