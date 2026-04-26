@@ -53,6 +53,14 @@ remap('n', '<C-l>', require('fzf-lua').live_grep, opts)
 remap('n', '<C-t>', require('fzf-lua').tags, opts)
 remap('n', '<C-s>', require('fzf-lua').grep_cword, opts) -- need to install 'ripgrep'
 remap('n', '<leader><space>', require('fzf-lua').buffers, opts)
+-- fzf - send search result to quickfix
+require("fzf-lua").setup({
+  keymap = {
+    fzf = {
+      ["ctrl-q"] = "select-all+accept",
+    },
+  },
+})
 
 -- snacks
 remap('n', '<leader>.', function() Snacks.scratch() end)
