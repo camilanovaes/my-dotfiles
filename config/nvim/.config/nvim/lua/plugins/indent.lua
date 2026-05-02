@@ -1,6 +1,6 @@
--- Indent blanklines config
---
-vim.opt.list = true
-vim.opt.listchars:append "eol:↴"
-
-require("ibl").setup()
+return {
+  "lukas-reineke/indent-blankline.nvim",
+  main = "ibl",
+  event = { "BufReadPost", "BufNewFile" },
+  opts = {},
+}
