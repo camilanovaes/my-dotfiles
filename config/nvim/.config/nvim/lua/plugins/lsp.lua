@@ -26,7 +26,6 @@ return {
     "saghen/blink.cmp",
     {
       "j-hui/fidget.nvim",
-      tag = "legacy",
       event = "LspAttach",
       opts = {},
     },

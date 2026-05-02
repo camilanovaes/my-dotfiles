@@ -39,9 +39,8 @@ vim.opt.conceallevel   = 0
 -- buffer-local options
 vim.opt.textwidth      = 79
 
--- spell checking
+-- spell checking (enabled per-filetype via autocmd below)
 vim.opt.spelllang      = "en_us"
-vim.opt.spell          = true
 
 -- indent-blankline expects list mode and an end-of-line listchar
 vim.opt.list           = true
@@ -52,7 +51,7 @@ vim.diagnostic.config({
   virtual_text = true,
   signs = true,
   underline = true,
-  update_in_insert = true,
+  update_in_insert = false,
   severity_sort = false,
 })
 
@@ -68,5 +67,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = vim.api.nvim_create_augroup("HighlightYankGrp", { clear = true }),
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Enable spell-check for prose filetypes",
+  group = vim.api.nvim_create_augroup("SpellProse", { clear = true }),
+  pattern = { "gitcommit", "markdown", "text" },
+  callback = function()
+    vim.opt_local.spell = true
   end,
 })
