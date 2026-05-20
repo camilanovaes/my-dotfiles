@@ -9,7 +9,7 @@
 	uncommit = reset --soft HEAD^
 	unstage = reset HEAD
 [commit]
-	template = /home/camila/.git-commit-message.txt
+	template = ~/.git-commit-message.txt
 	verbose = true
 [init]
 	defaultBranch = main

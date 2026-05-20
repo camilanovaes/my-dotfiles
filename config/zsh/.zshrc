@@ -31,13 +31,13 @@ source $HOME/.cargo/env
 export GOENV_ROOT=$HOME/.goenv
 
 # Add local bin to path
-path+=('/home/camila/.local/bin')
+path+=("$HOME/.local/bin")
 path+=('/usr/local/go/bin')
-path+=('/home/camila/go/bin')
-path+=('/home/camila/.npm-global/bin')
-path+=('/home/camila/.cargo')
-path+=('/home/camila/.goenv/bin')
-path+=('/home/camila/.krew/bin') # k8s plugins
+path+=("$HOME/go/bin")
+path+=("$HOME/.npm-global/bin")
+path+=("$HOME/.cargo")
+path+=("$HOME/.goenv/bin")
+path+=("$HOME/.krew/bin")  # k8s plugins
 export PATH
 
 # FZF configuration
