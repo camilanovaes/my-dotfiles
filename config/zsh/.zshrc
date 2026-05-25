@@ -49,7 +49,7 @@ alias gs="git status"
 alias ga="git add"
 alias gc="git commit -v"
 alias gl="git l"
-alias gp="git pull"
+alias gp="git pull --rebase"
 alias gf="git fetch -a"
 alias mibdump.py="mibdump"
 alias docker-gui="docker run -it --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix"
@@ -69,6 +69,3 @@ complete -o nospace -C /usr/bin/terraform terraform
 
 # load goenv
 eval "$(goenv init -)"
-
-# Generated for envman. Do not edit.
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
