@@ -41,7 +41,7 @@ path+=("$HOME/.krew/bin")  # k8s plugins
 export PATH
 
 # FZF configuration
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+command -v fzf &>/dev/null && source <(fzf --zsh)
 
 # Alias
 ## Git
