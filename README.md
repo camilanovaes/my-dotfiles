@@ -1,6 +1,5 @@
 # Dotfiles
 
-- **Terminal**: [Wezterm](https://github.com/wez/wezterm)
 - **Terminal multiplexer**: [Tmux](https://github.com/tmux/tmux)
 - **Editor**: [Neovim](https://github.com/neovim/neovim)
 
@@ -14,12 +13,8 @@ git clone https://github.com/camilanovaes/my-dotfiles.git ~/dotfiles
 After that just run the installation script:
 
 ```bash
-cd ~/dotfiles
-./install.py all
+cd ~/dotfiles && ./install.sh
 ```
-
-You can check all commands before installing anything using the `--dry` flag (e.g.
-`./install.py --dry all`).
 
 # Development
 
