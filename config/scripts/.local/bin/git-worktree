@@ -1,21 +1,92 @@
 #!/bin/bash
 
-branch=$(git branch -a --sort=-committerdate --no-merged \
-  | grep -v HEAD \
-  | sed 's/^[* +]*//' \
-  | sed 's|^remotes/origin/||' \
-  | awk '!seen[$0]++' \
-  | head -n 30 \
-  | fzf)
-[ -z "$branch" ] && exit 0
+set -e
 
-project=$(basename "$(git rev-parse --show-toplevel)" | tr . _)
-branch_name=$(echo "$branch" | sed 's|/|-|g' | tr . _)
-worktree_name="${project}-${branch_name}"
-worktree_path="$(dirname "$(git rev-parse --show-toplevel)")/${worktree_name}"
+usage() {
+  echo "Usage: git-worktree [new <branch>]" >&2
+  exit 2
+}
 
-if ! git worktree list --porcelain | grep -qxF "worktree $worktree_path"; then
-  git worktree add "$worktree_path" "$branch"
+create_new=false
+selected_worktree=false
+if [ "$#" -gt 0 ]; then
+  [ "$#" -eq 2 ] && [ "$1" = new ] || usage
+  create_new=true
+  branch=$2
+else
+  worktree_branches=$(git worktree list --porcelain | sed -n 's|^branch refs/heads/||p')
+  choice=$(
+    {
+      git worktree list --porcelain | awk '
+        function emit() {
+          if (path != "") printf "Worktree: %s\t[%s]\n", path, branch
+        }
+        /^worktree / { emit(); path = substr($0, 10); branch = "detached HEAD" }
+        /^branch refs\/heads\// { branch = substr($0, 19) }
+        END { emit() }
+      '
+      printf '%s\n' 'Create new branch from main'
+      git branch -a --sort=-committerdate --no-merged \
+        | grep -v HEAD \
+        | sed 's/^[* +]*//' \
+        | sed 's|^remotes/origin/||' \
+        | awk '!seen[$0]++' \
+        | while IFS= read -r candidate; do
+            if ! printf '%s\n' "$worktree_branches" | grep -qxF "$candidate"; then
+              printf 'Branch: %s\n' "$candidate"
+            fi
+          done \
+        | head -n 30
+    } | fzf
+  )
+  [ -n "$choice" ] || exit 0
+
+  case "$choice" in
+    'Create new branch from main')
+      create_new=true
+      read -r -p 'New branch name: ' branch
+      [ -n "$branch" ] || exit 0
+      ;;
+    'Worktree: '*)
+      selected_worktree=true
+      worktree_entry=${choice%%$'\t'*}
+      worktree_path=${worktree_entry#Worktree: }
+      worktree_name=$(basename "$worktree_path")
+      ;;
+    'Branch: '*) branch=${choice#Branch: } ;;
+  esac
+fi
+
+if "$create_new"; then
+  git check-ref-format --branch "$branch" >/dev/null || exit 1
+  if git show-ref --verify --quiet "refs/heads/$branch"; then
+    echo "Branch already exists: $branch" >&2
+    exit 1
+  fi
+  if ! git show-ref --verify --quiet refs/heads/main; then
+    echo 'Local main branch not found' >&2
+    exit 1
+  fi
+fi
+
+if ! "$selected_worktree"; then
+  project=$(basename "$(git rev-parse --show-toplevel)" | tr . _)
+  branch_name=$(echo "$branch" | sed 's|/|-|g' | tr . _)
+  worktree_name="${project}-${branch_name}"
+  worktree_path="$(dirname "$(git rev-parse --show-toplevel)")/${worktree_name}"
+
+  if "$create_new" && git worktree list --porcelain | grep -qxF "worktree $worktree_path"; then
+    echo "Worktree path already in use: $worktree_path" >&2
+    exit 1
+  fi
+
+  if ! git worktree list --porcelain | grep -qxF "worktree $worktree_path"; then
+    if "$create_new"; then
+      git worktree add -b "$branch" "$worktree_path" main
+    else
+      git worktree add "$worktree_path" "$branch"
+    fi
+  fi
 fi
 
 if ! tmux has-session -t "=$worktree_name" 2>/dev/null; then
