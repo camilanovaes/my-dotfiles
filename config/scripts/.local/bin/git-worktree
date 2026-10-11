@@ -1,0 +1,25 @@
+#!/bin/bash
+
+branch=$(git branch -a --sort=-committerdate --no-merged \
+  | grep -v HEAD \
+  | sed 's/^[* +]*//' \
+  | sed 's|^remotes/origin/||' \
+  | awk '!seen[$0]++' \
+  | head -n 30 \
+  | fzf)
+[ -z "$branch" ] && exit 0
+
+project=$(basename "$(git rev-parse --show-toplevel)" | tr . _)
+branch_name=$(echo "$branch" | sed 's|/|-|g' | tr . _)
+worktree_name="${project}-${branch_name}"
+worktree_path="$(dirname "$(git rev-parse --show-toplevel)")/${worktree_name}"
+
+if ! git worktree list --porcelain | grep -qxF "worktree $worktree_path"; then
+  git worktree add "$worktree_path" "$branch"
+fi
+
+if ! tmux has-session -t "=$worktree_name" 2>/dev/null; then
+  tmux new-session -s "$worktree_name" -c "$worktree_path" -d
+fi
+
+tmux switch-client -t "=$worktree_name"

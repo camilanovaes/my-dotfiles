@@ -59,6 +59,7 @@ alias k="kubectl"
 bindkey -s "^f" "tmux-session\n"
 bindkey -s "^g" "tmux-switcher\n"
 bindkey -s "^b" "git-branch-switcher\n"
+bindkey -s "^t" "git-worktree\n"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
