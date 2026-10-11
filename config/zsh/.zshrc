@@ -52,7 +52,7 @@ alias gl="git l"
 alias gp="git pull --rebase"
 alias gf="git fetch -a"
 alias mibdump.py="mibdump"
-alias docker-gui="docker run -it --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix"
+alias docker-gui="docker run -it --rm -e DISPLAY=host.docker.internal:0 -v /tmp/.X11-unix:/tmp/.X11-unix:ro"
 alias k="kubectl"
 
 # Keybinds
